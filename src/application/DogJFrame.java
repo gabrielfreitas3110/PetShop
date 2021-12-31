@@ -146,6 +146,11 @@ public class DogJFrame extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tbDog.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbDogMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tbDog);
         if (tbDog.getColumnModel().getColumnCount() > 0) {
             tbDog.getColumnModel().getColumn(0).setResizable(false);
@@ -341,6 +346,21 @@ public class DogJFrame extends javax.swing.JFrame {
         AtualizaTabela();
     }//GEN-LAST:event_btnInserirActionPerformed
 
+    private void tbDogMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbDogMouseClicked
+        // TODO add your handling code here:
+        
+        txtCod.setText(getSelectedRowColumn(0));
+        txtNome.setText(getSelectedRowColumn(1));
+        txtRaca.setText(getSelectedRowColumn(2));
+        txtIdade.setText(getSelectedRowColumn(3));
+        txtPeso.setText(getSelectedRowColumn(4));
+        if(getSelectedRowColumn(5).equals("F"))
+            cmbBoxSexo.setSelectedIndex(0);
+        else
+            cmbBoxSexo.setSelectedIndex(1);
+        txtCor.setText(getSelectedRowColumn(6));
+    }//GEN-LAST:event_tbDogMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -446,5 +466,9 @@ public class DogJFrame extends javax.swing.JFrame {
                 dog.getCor()
             });
         } 
+    }
+
+    private String getSelectedRowColumn(int i) {
+        return tbDog.getModel().getValueAt(tbDog.getSelectedRow(), i).toString();
     }
 }

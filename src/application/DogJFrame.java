@@ -340,6 +340,16 @@ public class DogJFrame extends javax.swing.JFrame {
 
     private void btnDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarActionPerformed
         // TODO add your handling code here:
+        if(txtCod.getText().isBlank()) {
+            JOptionPane.showMessageDialog(rootPane, "Selecione algum dado para apagar", "Nenhum dado selecionado", JOptionPane.WARNING_MESSAGE, null);
+            txtNome.requestFocus();
+            return;
+        }
+        Dog dog = new Dog();
+        dog.setCod(Integer.parseInt(txtCod.getText()));
+        DogDao dao = new DogDao();
+        dao.delete(dog);
+        AtualizaTabela();
     }//GEN-LAST:event_btnDeletarActionPerformed
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed

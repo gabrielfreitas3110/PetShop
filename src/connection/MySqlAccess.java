@@ -9,7 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
         
 public class MySqlAccess {
-    private static final String URL = "jdbc:mysql://localhost:3306/dbclass";
+    private static final String URL = "jdbc:mysql://localhost:3306/dbpetshop";
     private static final String USER = "root";
     private static final String PASS = "";
     

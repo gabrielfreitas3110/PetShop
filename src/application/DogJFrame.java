@@ -5,15 +5,18 @@
  */
 package application;
 
+import dao.DogDao;
+import entities.Dog;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Gabriel Augusto
  */
 public class DogJFrame extends javax.swing.JFrame {
-
     /**
      * Creates new form DogJFrame
      */
@@ -21,6 +24,8 @@ public class DogJFrame extends javax.swing.JFrame {
         initComponents(); 
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+        
+        AtualizaTabela();
     }
 
     /**
@@ -49,7 +54,7 @@ public class DogJFrame extends javax.swing.JFrame {
         cmbBoxSexo = new javax.swing.JComboBox<>();
         txtCod6 = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tbDog = new javax.swing.JTable();
         btnInserir = new javax.swing.JButton();
         btnAtualizar = new javax.swing.JButton();
         btnDeletar = new javax.swing.JButton();
@@ -121,8 +126,8 @@ public class DogJFrame extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setFont(new java.awt.Font("Courier New", 0, 13)); // NOI18N
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbDog.setFont(new java.awt.Font("Courier New", 0, 13)); // NOI18N
+        tbDog.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null},
@@ -141,19 +146,24 @@ public class DogJFrame extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setResizable(false);
-            jTable1.getColumnModel().getColumn(1).setResizable(false);
-            jTable1.getColumnModel().getColumn(2).setResizable(false);
-            jTable1.getColumnModel().getColumn(3).setResizable(false);
-            jTable1.getColumnModel().getColumn(4).setResizable(false);
-            jTable1.getColumnModel().getColumn(5).setResizable(false);
-            jTable1.getColumnModel().getColumn(6).setResizable(false);
+        jScrollPane1.setViewportView(tbDog);
+        if (tbDog.getColumnModel().getColumnCount() > 0) {
+            tbDog.getColumnModel().getColumn(0).setResizable(false);
+            tbDog.getColumnModel().getColumn(1).setResizable(false);
+            tbDog.getColumnModel().getColumn(2).setResizable(false);
+            tbDog.getColumnModel().getColumn(3).setResizable(false);
+            tbDog.getColumnModel().getColumn(4).setResizable(false);
+            tbDog.getColumnModel().getColumn(5).setResizable(false);
+            tbDog.getColumnModel().getColumn(6).setResizable(false);
         }
 
         btnInserir.setFont(new java.awt.Font("Lato Black", 1, 14)); // NOI18N
         btnInserir.setText("Inserir");
+        btnInserir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInserirActionPerformed(evt);
+            }
+        });
 
         btnAtualizar.setFont(new java.awt.Font("Lato Black", 1, 14)); // NOI18N
         btnAtualizar.setText("Atualizar");
@@ -314,6 +324,23 @@ public class DogJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnSairActionPerformed
 
+    private void btnInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirActionPerformed
+        // TODO add your handling code here:
+        if(isEmptyFields()) {
+            return;
+        }
+        Dog dog = new Dog();
+        dog.setNome(txtNome.getText());
+        dog.setRaca(txtRaca.getText());
+        dog.setIdade(Integer.parseInt(txtIdade.getText()));
+        dog.setPeso(Double.parseDouble(txtPeso.getText()));
+        dog.setSexo(cmbBoxSexo.getSelectedItem().toString());
+        dog.setCor(txtCor.getText());
+        DogDao dao = new DogDao();
+        dao.insert(dog);
+        AtualizaTabela();
+    }//GEN-LAST:event_btnInserirActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -357,7 +384,6 @@ public class DogJFrame extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cmbBoxSexo;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lbCod;
     private javax.swing.JLabel lbCor;
     private javax.swing.JLabel lbIdade;
@@ -365,6 +391,7 @@ public class DogJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel lbPeso;
     private javax.swing.JLabel lbRaca;
     private javax.swing.JLabel lbSexo;
+    private javax.swing.JTable tbDog;
     private javax.swing.JTextField txtCod;
     private javax.swing.JTextField txtCod6;
     private javax.swing.JTextField txtCor;
@@ -373,4 +400,51 @@ public class DogJFrame extends javax.swing.JFrame {
     private javax.swing.JTextField txtPeso;
     private javax.swing.JTextField txtRaca;
     // End of variables declaration//GEN-END:variables
+
+    private boolean isEmptyFields() {
+        if(txtNome.getText().isBlank()) {
+            JOptionPane.showMessageDialog(rootPane, "O campo nome é obrigatorio", "Campo em branco", JOptionPane.WARNING_MESSAGE, null);
+            txtNome.requestFocus();
+            return true;
+        }
+        if(txtRaca.getText().isBlank()) {
+            JOptionPane.showMessageDialog(rootPane, "O campo raça é obrigatorio", "Campo em branco", JOptionPane.WARNING_MESSAGE, null);
+            txtRaca.requestFocus();
+            return true;
+        }
+        if(txtIdade.getText().isBlank()) {
+            JOptionPane.showMessageDialog(rootPane, "O campo idade é obrigatorio", "Campo em branco", JOptionPane.WARNING_MESSAGE, null);
+            txtIdade.requestFocus();
+            return true;
+        }
+        if(txtPeso.getText().isBlank()) {
+            JOptionPane.showMessageDialog(rootPane, "O campo peso é obrigatorio", "Campo em branco", JOptionPane.WARNING_MESSAGE, null);
+            txtPeso.requestFocus();
+            return true;
+        }
+        if(txtCor.getText().isBlank()) {
+            JOptionPane.showMessageDialog(rootPane, "O campo cor é obrigatorio", "Campo em branco", JOptionPane.WARNING_MESSAGE, null);
+            txtCor.requestFocus();
+            return true;
+        }
+        return false;
+    }
+
+    private void AtualizaTabela() {
+        DogDao dao = new DogDao();
+        DefaultTableModel model = (DefaultTableModel) tbDog.getModel();
+        model.setNumRows(0);
+        tbDog.removeAll();    
+        for (Dog dog : dao.read()) {
+            model.addRow(new Object[] {
+                dog.getCod(),
+                dog.getNome(),
+                dog.getRaca(),
+                dog.getIdade(),
+                dog.getPeso(),
+                dog.getSexo(),
+                dog.getCor()
+            });
+        } 
+    }
 }

@@ -44,7 +44,7 @@ public class DogJFrame extends javax.swing.JFrame {
         lbPeso = new javax.swing.JLabel();
         lbSexo = new javax.swing.JLabel();
         lbCor = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
+        lbPequisa = new javax.swing.JLabel();
         txtCod = new javax.swing.JTextField();
         txtNome = new javax.swing.JTextField();
         txtIdade = new javax.swing.JTextField();
@@ -52,7 +52,7 @@ public class DogJFrame extends javax.swing.JFrame {
         txtPeso = new javax.swing.JTextField();
         txtCor = new javax.swing.JTextField();
         cmbBoxSexo = new javax.swing.JComboBox<>();
-        txtCod6 = new javax.swing.JTextField();
+        txtPesquisa = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbDog = new javax.swing.JTable();
         btnInserir = new javax.swing.JButton();
@@ -86,8 +86,8 @@ public class DogJFrame extends javax.swing.JFrame {
         lbCor.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         lbCor.setText("Cor");
 
-        jLabel8.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
-        jLabel8.setText("Pesquisar");
+        lbPequisa.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
+        lbPequisa.setText("Pesquisar");
 
         txtCod.setFont(new java.awt.Font("Courier New", 0, 15)); // NOI18N
         txtCod.setEnabled(false);
@@ -120,10 +120,15 @@ public class DogJFrame extends javax.swing.JFrame {
         cmbBoxSexo.setFont(new java.awt.Font("Courier New", 1, 15)); // NOI18N
         cmbBoxSexo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "F", "M" }));
 
-        txtCod6.setFont(new java.awt.Font("Courier New", 0, 15)); // NOI18N
-        txtCod6.addActionListener(new java.awt.event.ActionListener() {
+        txtPesquisa.setFont(new java.awt.Font("Courier New", 0, 15)); // NOI18N
+        txtPesquisa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCod6ActionPerformed(evt);
+                txtPesquisaActionPerformed(evt);
+            }
+        });
+        txtPesquisa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtPesquisaKeyReleased(evt);
             }
         });
 
@@ -205,12 +210,8 @@ public class DogJFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(25, 25, 25)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel8)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtCod6))
-                    .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -225,16 +226,26 @@ public class DogJFrame extends javax.swing.JFrame {
                                 .addComponent(btnInserir)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addGroup(layout.createSequentialGroup()
                                 .addGap(75, 75, 75)
                                 .addComponent(btnAtualizar)
                                 .addGap(75, 75, 75)
                                 .addComponent(btnDeletar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtNome)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtCod, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(cmbBoxSexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(35, 35, 35)
+                                                .addComponent(lbCor)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(txtCor, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addGroup(layout.createSequentialGroup()
                                         .addComponent(txtRaca, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(35, 35, 35)
                                         .addComponent(lbIdade)
@@ -243,19 +254,16 @@ public class DogJFrame extends javax.swing.JFrame {
                                         .addGap(35, 35, 35)
                                         .addComponent(lbPeso)
                                         .addGap(18, 18, 18)
-                                        .addComponent(txtPeso, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(txtCod, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 465, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(cmbBoxSexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(35, 35, 35)
-                                            .addComponent(lbCor)
-                                            .addGap(18, 18, 18)
-                                            .addComponent(txtCor, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addGap(0, 6, Short.MAX_VALUE))))
-                    .addComponent(jScrollPane1))
-                .addContainerGap(25, Short.MAX_VALUE))
+                                        .addComponent(txtPeso, javax.swing.GroupLayout.DEFAULT_SIZE, 76, Short.MAX_VALUE)))
+                                .addGap(30, 30, 30))))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(lbPequisa)
+                            .addGap(18, 18, 18)
+                            .addComponent(txtPesquisa))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 509, javax.swing.GroupLayout.PREFERRED_SIZE)))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -288,13 +296,13 @@ public class DogJFrame extends javax.swing.JFrame {
                     .addComponent(btnAtualizar)
                     .addComponent(btnSair)
                     .addComponent(btnDeletar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(txtCod6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24))
+                    .addComponent(lbPequisa)
+                    .addComponent(txtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(16, 16, 16))
         );
 
         pack();
@@ -312,9 +320,9 @@ public class DogJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCorActionPerformed
 
-    private void txtCod6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCod6ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCod6ActionPerformed
+    private void txtPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPesquisaActionPerformed
+        // TODO add your handling code here: 
+    }//GEN-LAST:event_txtPesquisaActionPerformed
 
     private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
         // TODO add your handling code here:
@@ -372,6 +380,11 @@ public class DogJFrame extends javax.swing.JFrame {
         DogDao dao = new DogDao();
         dao.insert(dog);
         AtualizaTabela();
+        txtNome.setText("");
+        txtRaca.setText("");
+        txtIdade.setText("");
+        txtPeso.setText("");
+        txtCor.setText("");
     }//GEN-LAST:event_btnInserirActionPerformed
 
     private void tbDogMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbDogMouseClicked
@@ -388,6 +401,25 @@ public class DogJFrame extends javax.swing.JFrame {
             cmbBoxSexo.setSelectedIndex(1);
         txtCor.setText(getSelectedRowColumn(6));
     }//GEN-LAST:event_tbDogMouseClicked
+
+    private void txtPesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisaKeyReleased
+        // TODO add your handling code here:
+        DogDao dao = new DogDao();
+        DefaultTableModel model = (DefaultTableModel) tbDog.getModel();
+        model.setNumRows(0);
+        tbDog.removeAll();    
+        for (Dog dog : dao.readLike(txtPesquisa.getText())) {
+            model.addRow(new Object[] {
+                dog.getCod(),
+                dog.getNome(),
+                dog.getRaca(),
+                dog.getIdade(),
+                dog.getPeso(),
+                dog.getSexo(),
+                dog.getCor()
+            });
+        }
+    }//GEN-LAST:event_txtPesquisaKeyReleased
 
     /**
      * @param args the command line arguments
@@ -430,22 +462,22 @@ public class DogJFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnInserir;
     private javax.swing.JButton btnSair;
     private javax.swing.JComboBox<String> cmbBoxSexo;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbCod;
     private javax.swing.JLabel lbCor;
     private javax.swing.JLabel lbIdade;
     private javax.swing.JLabel lbNome;
+    private javax.swing.JLabel lbPequisa;
     private javax.swing.JLabel lbPeso;
     private javax.swing.JLabel lbRaca;
     private javax.swing.JLabel lbSexo;
     private javax.swing.JTable tbDog;
     private javax.swing.JTextField txtCod;
-    private javax.swing.JTextField txtCod6;
     private javax.swing.JTextField txtCor;
     private javax.swing.JTextField txtIdade;
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtPeso;
+    private javax.swing.JTextField txtPesquisa;
     private javax.swing.JTextField txtRaca;
     // End of variables declaration//GEN-END:variables
 

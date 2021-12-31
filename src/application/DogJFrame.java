@@ -140,7 +140,7 @@ public class DogJFrame extends javax.swing.JFrame {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, true, true
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -155,11 +155,15 @@ public class DogJFrame extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tbDog);
         if (tbDog.getColumnModel().getColumnCount() > 0) {
             tbDog.getColumnModel().getColumn(0).setResizable(false);
+            tbDog.getColumnModel().getColumn(0).setPreferredWidth(25);
             tbDog.getColumnModel().getColumn(1).setResizable(false);
             tbDog.getColumnModel().getColumn(2).setResizable(false);
             tbDog.getColumnModel().getColumn(3).setResizable(false);
+            tbDog.getColumnModel().getColumn(3).setPreferredWidth(25);
             tbDog.getColumnModel().getColumn(4).setResizable(false);
+            tbDog.getColumnModel().getColumn(4).setPreferredWidth(25);
             tbDog.getColumnModel().getColumn(5).setResizable(false);
+            tbDog.getColumnModel().getColumn(5).setPreferredWidth(10);
             tbDog.getColumnModel().getColumn(6).setResizable(false);
         }
 
@@ -248,7 +252,7 @@ public class DogJFrame extends javax.swing.JFrame {
                                             .addGap(35, 35, 35)
                                             .addComponent(lbCor)
                                             .addGap(18, 18, 18)
-                                            .addComponent(txtCor, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                            .addComponent(txtCor, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                 .addGap(0, 6, Short.MAX_VALUE))))
                     .addComponent(jScrollPane1))
                 .addContainerGap(25, Short.MAX_VALUE))
@@ -314,6 +318,24 @@ public class DogJFrame extends javax.swing.JFrame {
 
     private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
         // TODO add your handling code here:
+        if(txtCod.getText().isBlank()) {
+            JOptionPane.showMessageDialog(rootPane, "Selecione algum dado para atualizar", "Nenhum dado selecionado", JOptionPane.WARNING_MESSAGE, null);
+            txtNome.requestFocus();
+            return;
+        } else if(isEmptyFields()) {
+            return;
+        }
+        Dog dog = new Dog();
+        dog.setCod(Integer.parseInt(txtCod.getText()));
+        dog.setNome(txtNome.getText());
+        dog.setRaca(txtRaca.getText());
+        dog.setIdade(Integer.parseInt(txtIdade.getText()));
+        dog.setPeso(Double.parseDouble(txtPeso.getText()));
+        dog.setSexo(cmbBoxSexo.getSelectedItem().toString());
+        dog.setCor(txtCor.getText());
+        DogDao dao = new DogDao();
+        dao.update(dog);
+        AtualizaTabela();
     }//GEN-LAST:event_btnAtualizarActionPerformed
 
     private void btnDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarActionPerformed

@@ -26,7 +26,7 @@ public class MySqlAccess {
             if(con != null)
                 con.close();
         }catch (SQLException ex) {
-            Logger.getLogger(MySqlAcess.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MySqlAccess.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -36,7 +36,7 @@ public class MySqlAccess {
             if(stm != null)
                 stm.close();
         }catch (SQLException ex) {
-            Logger.getLogger(MySqlAcess.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MySqlAccess.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -46,7 +46,7 @@ public class MySqlAccess {
             if(rs != null) 
                 rs.close();
         }catch (SQLException ex) {
-            Logger.getLogger(MySqlAcess.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MySqlAccess.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }
